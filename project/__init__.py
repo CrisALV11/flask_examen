@@ -21,7 +21,6 @@ def create_app():
 
     @app.before_first_request
     def create_all():
-        print('Hola')
         db.create_all()
 
     security = Security(app, user_datastore)

@@ -11,8 +11,5 @@ customer = Blueprint('customer', __name__, url_prefix='/customer')
 @customer.route("/gallery", methods=["GET", "POST"])
 @login_required
 def gallery():
-    return render_template("gallery.html")
-
-
-
- 
+    product = Products.query.filter(Products.active == 1).all()
+    return render_template("gallery.html", products= product)
