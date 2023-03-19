@@ -24,7 +24,7 @@ def login():
 
         # Se autentica a el usuario
         login_user(user, remember=remember)
-        return redirect(url_for('main.profile'))
+        return redirect(url_for('customer.gallery'))
     return render_template('/security/login.html')
 
 @auth.route('/register',  methods=['POST', 'GET'])
@@ -39,7 +39,7 @@ def register():
         # Verifica si el correo ya existe
         if user:
             flash('El correo electrónico ya está registrado')
-            return redirect(url_for('auth.signup'))
+            return redirect(url_for('auth.register'))
 
         # Se crea un nuevo usuario con los datos del formulario
         # Se realiza un hash a la contraseña
@@ -47,7 +47,6 @@ def register():
                                    password=generate_password_hash(password, method='sha256'),
                                    active = True)
         db.session.commit()
-
         return redirect(url_for('auth.login'))
     return render_template('/security/register.html')
 
