@@ -1,5 +1,6 @@
 from flask_security import UserMixin, RoleMixin
 from . import db
+from sqlalchemy.dialects.mysql import LONGTEXT
 
 # Define models
 roles_users = db.Table('roles_users',
@@ -20,3 +21,10 @@ class User(db.Model, UserMixin):
     confirmed_at = db.Column(db.DateTime())
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
+    
+class Products(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    describe = db.Column(db.String(255))
+    active = db.Column(db.Boolean())
+    photo = db.Column(LONGTEXT)

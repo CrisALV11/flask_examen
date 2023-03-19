@@ -3,7 +3,7 @@ from flask import Flask
 from flask_security import Security, SQLAlchemyUserDatastore
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
-from .models import User, Role
+from .models import User, Role, Products
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 
 # Método de inicio de la aplicación
@@ -12,7 +12,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = os.urandom(24)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:1234@127.0.0.1:3306/flasksecurity'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://jessi:1a2b3c@127.0.0.1:3306/flask_examen'
     app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512'
     app.config['SECURITY_PASSWORD_SALT'] = 'thisissecretsalt'
 
