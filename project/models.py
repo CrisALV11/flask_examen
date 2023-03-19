@@ -26,5 +26,6 @@ class Products(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     describe = db.Column(db.String(255))
+    cost = db.Column(db.Float)
     active = db.Column(db.Boolean())
     photo = db.Column(LONGTEXT)

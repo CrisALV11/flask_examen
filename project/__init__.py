@@ -21,6 +21,7 @@ def create_app():
 
     @app.before_first_request
     def create_all():
+        print('Hola')
         db.create_all()
 
     security = Security(app, user_datastore)
@@ -28,9 +29,6 @@ def create_app():
     # Registro del blueprint para las rutas auth de la aplicación
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
-
-    from .client import client as client_blueprint
-    app.register_blueprint(client_blueprint)
 
     from .admin import admin as admin_blueprint
     app.register_blueprint(admin_blueprint)
@@ -41,6 +39,7 @@ def create_app():
     # Registro del blueprint para las rutas no auth de la aplicación
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
 
     return app
 

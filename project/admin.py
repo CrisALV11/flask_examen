@@ -13,7 +13,7 @@ admin = Blueprint('admin', __name__, url_prefix='/admin')
 @roles_required('admin')
 def consult():
     product = Products.query.all()
-    return render_template("",  products = product)
+    return render_template("products.html",  products = product)
 
 @admin.route("/register", methods=["GET", "POST"])
 @login_required
@@ -23,6 +23,7 @@ def register():
             product = Products(name = request.form.get('name'),
                             describe =  request.form.get('describe'),
                             active = True,
+                            cost = request.form.get('cost'),
                             photo = request.form.get('photo')
                             )
             db.session.add(product)
@@ -39,12 +40,14 @@ def modificar():
         name = product.name
         describe = product.describe
         active = product.active
+        cost = product.cost
         photo = product.photo
         dicProducto = {
             "id": id,
             "name": name,
             "describe": describe,
             "active": active,
+            "cost": cost,
             "photo": photo
         }
     if request.method == 'POST':
@@ -53,6 +56,7 @@ def modificar():
         product.name = request.form.get('name')
         product.describe  = request.form.get('describe')
         product.active  = request.form.get('active')
+        product.cost = request.form.get('cost')
         product.photo = request.form.get('photo')
         db.session.add(product)
         flash('El producto fue modificado con exitó')

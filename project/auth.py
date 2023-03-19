@@ -24,7 +24,7 @@ def login():
 
         # Se autentica a el usuario
         login_user(user, remember=remember)
-        return redirect(url_for('customer.gallery'))
+        return redirect(url_for('admin.consult'))
     return render_template('/security/login.html')
 
 @auth.route('/register',  methods=['POST', 'GET'])
