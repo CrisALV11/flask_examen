@@ -7,7 +7,7 @@
 	<link rel="apple-touch-icon" sizes="76x76" href="../static/assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" href="../static/assets/img/favicon.png">
 	<title>
-		Argon
+		Brainbox
 	</title>
 	<!--     Fonts and icons     -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -24,12 +24,13 @@
 </head>
 
 <body class="index-page">
-	<!-- Navbar -->
 	<nav id="navbar-main"
-		class="navbar navbar-main navbar-expand-lg bg-white navbar-light position-sticky top-0 shadow py-2">
+		class="navbar navbar-main navbar-expand-lg bg-white navbar-light position-sticky top-0 py-0">
 		<div class="container">
 			<a class="navbar-brand mr-lg-5" href="./index.html">
-				<img src="../static/assets/img/brand/blue.png">
+				<object data="../static/assets/img/logo.svg" type="image/svg+xml" style="width: 90px;">
+					<img src="../static/assets/img/brand/blue.png" alt="Logo blanco">
+				</object>
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
 				aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,9 +40,9 @@
 				<div class="navbar-collapse-header">
 					<div class="row">
 						<div class="col-6 collapse-brand">
-							<a href="./index.html">
-								<img src="../static/assets/img/brand/blue.png">
-							</a>
+							<object data="../static/assets/img/logo.svg" type="image/svg+xml" style="width: 50px;">
+								<img src="../static/assets/img/brand/blue.png" alt="Logo">
+							</object>
 						</div>
 						<div class="col-6 collapse-close">
 							<button type="button" class="navbar-toggler" data-toggle="collapse"
@@ -54,21 +55,21 @@
 					</div>
 				</div>
 				<ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-					<li class="nav-item dropdown">
-						<a href="/" class="nav-link" data-toggle="dropdown" href="#" role="button">
+					<li class="nav-item">
+						<a href="/" class="nav-link" href="#" role="button">
 							<i class="ni ni-ui-04 d-lg-none"></i>
 							<span class="nav-link-inner--text">Inicio</span>
 						</a>
 					</li>
-					<li class="nav-item dropdown">
+					<li class="nav-item">
 						<a href="{{ '/gallery' if current_user.is_authenticated else url_for('auth.login') }}"
-							class="nav-link" data-toggle="dropdown" href="#" role="button">
+							class="nav-link" href="#" role="button">
 							<i class="ni ni-collection d-lg-none"></i>
 							<span class="nav-link-inner--text">Productos</span>
 						</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a href="#" class="nav-link" data-toggle="dropdown" href="#" role="button">
+						<a href="/contact" class="nav-link" role="button">
 							<i class="ni ni-collection d-lg-none"></i>
 							<span class="nav-link-inner--text">Contacto</span>
 						</a>
@@ -109,12 +110,10 @@
 		{% endblock %}
 	</div>
 
-	<!--   Core JS Files   -->
 	<script src="../static/assets/js/core/jquery.min.js" type="text/javascript"></script>
 	<script src="../static/assets/js/core/popper.min.js" type="text/javascript"></script>
 	<script src="../static/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
 	<script src="../static/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 	<script src="../static/assets/js/plugins/bootstrap-switch.js"></script>
 	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 	<script src="../static/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
@@ -122,7 +121,7 @@
 	<script src="../static/assets/js/plugins/datetimepicker.js" type="text/javascript"></script>
 	<script src="../static/assets/js/plugins/bootstrap-datepicker.min.js"></script>
 	<!--  Google Maps Plugin    -->
-	<script src="../static/assets/js/argon-design-system.min.js?v=1.2.2" type="text/javascript"></script>
+	<!-- <script src="../static/assets/js/argon-design-system.min.js?v=1.2.2" type="text/javascript"></script> -->
 </body>
 
 </html>

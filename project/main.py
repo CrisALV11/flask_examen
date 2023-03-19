@@ -11,11 +11,16 @@ main = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
+@main.route('/contact', methods=['POST', 'GET'])
+def contact():
+    if request.method == 'POST':
+        flash('¡Información enviada!')
+        return render_template('contact.html')
+    else:
+        return render_template('contact.html')
+
 @main.route('/profile')
 @login_required
 @roles_required('admin')
 def profile():
     return render_template('profile.html', name=current_user.name)
-
-
-
