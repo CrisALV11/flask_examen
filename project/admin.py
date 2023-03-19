@@ -12,7 +12,7 @@ admin = Blueprint('admin', __name__, url_prefix='/admin')
 @login_required
 @roles_required('admin')
 def consult():
-    product = Products.query.all()
+    product = Products.query.filter(Products.active == 1).all()
     return render_template("products.html",  products = product)
 
 @admin.route("/register", methods=["GET", "POST"])
@@ -20,9 +20,10 @@ def consult():
 @roles_required('admin')
 def register():
         if request.method == "POST":
+        
             product = Products(name = request.form.get('name'),
                             describe =  request.form.get('describe'),
-                            active = True,
+                            active = 1,
                             cost = request.form.get('cost'),
                             photo = request.form.get('photo')
                             )
@@ -30,10 +31,10 @@ def register():
             db.session.commit()
             flash('El producto fue agregado con exitó')
             return redirect(url_for('admin.consult'))
-        return render_template("")
+        return render_template("register.html")
 
-@admin.route("/modificar", methods=["GET", "POST"])
-def modificar():
+@admin.route("/update", methods=["GET", "POST"])
+def update():
     if request.method == 'GET':
         id = request.args.get('id')
         product = db.session.query(Products).filter(Products.id == id).first()
@@ -55,23 +56,27 @@ def modificar():
         product = db.session.query(Products).filter(Products.id == id).first()
         product.name = request.form.get('name')
         product.describe  = request.form.get('describe')
-        product.active  = request.form.get('active')
+        product.active  = 1
         product.cost = request.form.get('cost')
         product.photo = request.form.get('photo')
         db.session.add(product)
         flash('El producto fue modificado con exitó')
         db.session.commit()
-        return redirect(url_for('admin.consultar'))
-    return render_template("", product = dicProducto)
+        return redirect(url_for('admin.consult'))
+    return render_template("update.html", product = dicProducto)
 
-@admin.route("/eliminar", methods=["GET"])
-def eliminar():
-    id = request.form.get('id')
+@admin.route("/delete", methods=["GET"])
+def delete():
+    id = request.args.get('id')
+    print(id)
     product = db.session.query(Products).filter(Products.id == id).first()
-    product.active = False
+    product.active = 0
+    
     db.session.add(product)
-    flash('El producto fue eliminado con exitó')
     db.session.commit()
-    return redirect(url_for('admin.consultar'))
+    
+    flash('El producto fue eliminado con exitó')
+
+    return redirect(url_for('admin.consult'))
 
  

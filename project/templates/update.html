@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="d-flex align-items-center justify-content-center py-5">
+        <h2>Modificar Producto</h2>
+    </div>
+    <div class="d-flex align-items-center justify-content-center">
+        <form class="col-md-6" action="/admin/update" method="post" name="sent" id="form1">
+            <div class="form-group"> 
+                <label for="id" class="control-label">Id:</label>
+                <input type="text" class="form-control" id="id" name="id" value="{{product.id}}">
+            </div> 
+
+            <div class="form-group"> 
+                <label for="name" class="control-label">Nombre:</label>
+                <input type="text" class="form-control" id="name" name="name"  value="{{product.name}}">
+            </div>    
+            <div class="form-group"> 
+                <label for="describe" class="control-label">Descripcion:</label>
+                <input type="text-area" class="form-control" id="describe" name="describe" value="{{product.describe}}">
+            </div> 
+            <div class="form-group"> 
+                <label for="cost" class="control-label">Costo:</label>
+                <input type="number" class="form-control" id="cost" name="cost" value="{{product.cost}}">
+            </div>  
+            <div class="form-group"> 
+                <label for="photo" class="control-label">URL de la foto:</label>
+                <div class="input-group">
+                    <input type="text-area" accept="image/jpeg, image/png" class="form-control" id="photo" name="photo" value="{{product.photo}}">
+                    <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" onclick="cargarImagen()">Visualizar imagen</button>
+                    </span>
+                  </div>
+                  <img class="m-2" id="imagenCargada" src="{{product.photo}}" style="max-width: 100%; max-height: 400px;">
+                <script>
+                    function cargarImagen() {
+                        var url = document.getElementById("photo").value;
+                        document.getElementById("imagenCargada").src = url;
+                    }
+                </script>
+            </div>                   
+            <div class="form-group"> 
+                <button type="submit" class="btn btn-primary">Modificar</button>                
+            </div>     
+            
+        </form>
+    </div>
+
+{% endblock %}

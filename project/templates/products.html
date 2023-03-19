@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ messages[-1] }}
+      </div>
+      {% endif %}
+    {% endwith %}
+
+
     <div class="d-flex align-items-center justify-content-center py-5">
         <h2>Gestion de Productos</h2>
-        <a href=""
-                        class="btn btn-success mx-3">
-                            <i class="icon-remove icon-white"></i> Agregar
-                        </a>
+        <a href="register"  class="btn btn-success mx-3"> Agregar </a>
     </div>
     <div class="d-flex align-items-center justify-content-center">
     <table class="m-3 table table-borderless"">
@@ -27,15 +33,18 @@
                     <td>{{ p.name }}</td>
                     <td>{{ p.describe }}</td>
                     <td>{{ p.cost }}</td>
-                    <td>{{ p.active }}</td>
-                    <td><a href="eliminar?id={{ p.id }}"
-                        class="btn btn-danger">
-                            <i class="icon-remove icon-white"></i> Eliminar
+                    {% if p.active == 1 %}
+                    <td>Activo</td>
+                    {% else %}
+                    <td>Inactivo</td>
+                    {% endif %}
+                    
+                    <td><a href="delete?id={{ p.id }}"
+                        class="btn btn-danger"> Eliminar
                         </a>
                     </td>
-                    <td><a href="modificarM?id={{ p.id }}"
-                        class="btn btn-warning">
-                            <i class="icon-pencil icon-white"></i> Modificar
+                    <td><a href="update?id={{ p.id }}"
+                        class="btn btn-warning">Modificar
                         </a>
                     </td>
                 </tr>
