@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_security import login_required
+from flask_security import login_required, current_user
 from flask_security.utils import login_user, logout_user, hash_password, encrypt_password
-from .models import User
+from .models import User, roles_users
+
 from . import user_datastore, db
 
 auth = Blueprint('auth', __name__, url_prefix='/security')
@@ -24,7 +25,11 @@ def login():
 
         # Se autentica a el usuario
         login_user(user, remember=remember)
-        return redirect(url_for('admin.consult'))
+        
+        if 'admin' in [role.name for role in current_user.roles]:
+            return redirect(url_for('admin.consult'))
+        elif 'client' in [role.name for role in current_user.roles]:
+            return redirect(url_for('customer.gallery'))
     return render_template('/security/login.html')
 
 @auth.route('/register',  methods=['POST', 'GET'])

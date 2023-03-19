@@ -62,7 +62,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="{{ '/gallery' if current_user.is_authenticated else url_for('auth.login') }}"
+						<a href="{{ 'customer/gallery' if current_user.is_authenticated else url_for('auth.login') }}"
 							class="nav-link" href="#" role="button">
 							<i class="ni ni-collection d-lg-none"></i>
 							<span class="nav-link-inner--text">Productos</span>
