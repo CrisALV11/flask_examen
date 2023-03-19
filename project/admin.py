@@ -22,11 +22,12 @@ def register():
         if request.method == "POST":
             product = Products(name = request.form.get('name'),
                             describe =  request.form.get('describe'),
-                            active = 1,
+                            active = True,
                             photo = request.form.get('photo')
                             )
             db.session.add(product)
             db.session.commit()
+            flash('El producto fue agregado con exitó')
             return redirect(url_for('admin.consult'))
         return render_template("")
 
@@ -54,6 +55,7 @@ def modificar():
         product.active  = request.form.get('active')
         product.photo = request.form.get('photo')
         db.session.add(product)
+        flash('El producto fue modificado con exitó')
         db.session.commit()
         return redirect(url_for('admin.consultar'))
     return render_template("", product = dicProducto)
@@ -62,7 +64,9 @@ def modificar():
 def eliminar():
     id = request.form.get('id')
     product = db.session.query(Products).filter(Products.id == id).first()
+    product.active = False
     db.session.add(product)
+    flash('El producto fue eliminado con exitó')
     db.session.commit()
     return redirect(url_for('admin.consultar'))
 

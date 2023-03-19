@@ -43,7 +43,9 @@ def register():
 
         # Se crea un nuevo usuario con los datos del formulario
         # Se realiza un hash a la contraseña
-        user_datastore.create_user(name=name, email=email, password=generate_password_hash(password, method='sha256'))
+        user_datastore.create_user(name=name, email=email, 
+                                   password=generate_password_hash(password, method='sha256'),
+                                   active = True)
         db.session.commit()
 
         return redirect(url_for('auth.login'))
