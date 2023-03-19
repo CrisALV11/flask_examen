@@ -25,8 +25,11 @@ def create_app():
     security = Security(app, user_datastore)
 
     # Registro del blueprint para las rutas auth de la aplicación
-    from .admin import auth as auth_blueprint
+    from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
+
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint)
 
     # Registro del blueprint para las rutas no auth de la aplicación
     from .main import main as main_blueprint
