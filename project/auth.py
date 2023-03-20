@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_security import login_required, current_user
+from flask_security import login_required, current_user, SQLAlchemyUserDatastore
 from flask_security.utils import login_user, logout_user, hash_password, encrypt_password
-from .models import User, roles_users
+from .models import User, roles_users, Role
 
 from . import user_datastore, db
 
@@ -41,17 +41,25 @@ def register():
 
         user = User.query.filter_by(email=email).first()
 
-        # Verifica si el correo ya existe
+         # Verifica si el correo ya existe
         if user:
             flash('El correo electrónico ya está registrado')
             return redirect(url_for('auth.register'))
 
         # Se crea un nuevo usuario con los datos del formulario
         # Se realiza un hash a la contraseña
-        user_datastore.create_user(name=name, email=email, 
-                                   password=generate_password_hash(password, method='sha256'),
-                                   active = True)
+        new_user = User(name=name, email=email, 
+                        password=generate_password_hash(password, method='sha256'), active = True)
+
+        # Agrega el rol de cliente por defecto al nuevo usuario
+        client_role = Role.query.filter_by(name='client').first()
+        user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+        user_datastore.add_role_to_user(new_user, client_role)
+
+        # Guarda el nuevo usuario en la base de datos
+        db.session.add(new_user)
         db.session.commit()
+        
         return redirect(url_for('auth.login'))
     return render_template('/security/register.html')
 

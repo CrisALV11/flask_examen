@@ -1,7 +1,75 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="d-flex align-items-center justify-content-center py-5">
-        <h2>Galeria de productos</h2>
+<div class="d-flex align-items-center justify-content-center pt-5 pb-3">
+    <h2>Galeria de productos</h2>
+</div>
+<section>
+    <div class="album py-5">
+        <div class="container">
+            <div class="row">
+                {% for article in articles %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card mb-4 box-shadow align-self-stretch">
+                        <div class="d-flex align-content-center justify-content-center">
+                            <img class="card-img-top" alt="{{ article.name }}" style="width: 250px; height: 250px;"
+                                src="{{ article.photo }}" data-holder-rendered="true">
+                        </div>
+                        <div class="card-body">
+                            <h5>{{ article.name }}</h5>
+                            <p class="card-text pb-5">{{ article.describe }}</p>
+                            <div
+                                style="position: absolute; bottom: 15px;">
+                                <p class="bottom-0">$&nbsp;{{ article.cost }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <nav>
+                <ul class="pagination">
+                    {% if current_page > 1 %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ current_page - 1 }}">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% for page in range(1, num_pages+1) %}
+                    {% if page == current_page %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ page }}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if current_page < num_pages %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ current_page + 1 }}">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Siguiente</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Siguiente</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
     </div>
+</section>
 {% endblock %}

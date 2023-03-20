@@ -11,6 +11,7 @@ user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 def create_app():
     # Creación de instancia de la clase Flask
     app = Flask(__name__)
+    app.config['SECURITY_LOGIN_USER_TEMPLATE'] = '/security/login.html'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = os.urandom(24)
     app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URI')

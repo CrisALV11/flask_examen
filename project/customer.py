@@ -10,6 +10,14 @@ customer = Blueprint('customer', __name__, url_prefix='/customer')
 
 @customer.route("/gallery", methods=["GET", "POST"])
 @login_required
+
 def gallery():
-    product = Products.query.filter(Products.active == 1).all()
-    return render_template("gallery.html", products= product)
+    products = Products.query.filter(Products.active == 1).all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 6
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    page_articles = products[start_idx:end_idx]
+    num_pages = len(products) // per_page + (len(products) % per_page > 0)
+
+    return render_template('gallery.html', articles=page_articles, num_pages=num_pages, current_page=page)

@@ -34,6 +34,7 @@ def register():
         return render_template("register.html")
 
 @admin.route("/update", methods=["GET", "POST"])
+@roles_required('admin')
 def update():
     if request.method == 'GET':
         id = request.args.get('id')
@@ -66,6 +67,7 @@ def update():
     return render_template("update.html", product = dicProducto)
 
 @admin.route("/delete", methods=["GET"])
+@roles_required('admin')
 def delete():
     id = request.args.get('id')
     print(id)
